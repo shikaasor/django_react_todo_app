@@ -44,7 +44,12 @@ const Table = ({ todos, setTodos, isLoading }) => {
         console.log(editText);
     }
 
-
+    const handleClick = () => {
+        handleEdit(editText.id, editText)
+        setEditText({
+            'body': ''
+        })
+    }
 
 
     return (
@@ -79,7 +84,7 @@ const Table = ({ todos, setTodos, isLoading }) => {
                                     <td className='p-3 text-sm font-medium'>{new Date(todoItem.created).toLocaleString()}</td>
                                     <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5'>
                                         <span className='text-x1 inline-block cursor-pointer'>
-                                        <label htmlFor="my_modal_6" className="btn"><MdEditNote /></label>
+                                        <label htmlFor="my_modal_6" className="btn"><MdEditNote onClick={() => setEditText(todoItem)} /></label>
                                             </span>
                                         <span className='text-x1 inline-block cursor-pointer'><MdDelete onClick={ () => handleDelete(todoItem.id)} /></span>
                                     </td>
@@ -94,9 +99,9 @@ const Table = ({ todos, setTodos, isLoading }) => {
             <div className="modal" role="dialog">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Edit Todo</h3>
-                <input type="text" placeholder="Type here" onChange={handleChange} className="input input-bordered w-full mt-8 " />
+                <input type="text" value={editText.body} onChange={handleChange} className="input input-bordered w-full mt-8 " />
                 <div className="modal-action">
-                <label htmlFor="my_modal_6" className="btn btn-primary">Edit</label>
+                <label htmlFor="my_modal_6" onClick={handleClick} className="btn btn-primary">Edit</label>
                 <label htmlFor="my_modal_6" className="btn">Close</label>
                 </div>
             </div>
